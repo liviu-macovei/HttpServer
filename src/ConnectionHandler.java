@@ -78,8 +78,7 @@ public class ConnectionHandler implements Runnable {
                         String contenttype =
                                 URLConnection.guessContentTypeFromName(path);
                         pout.print("HTTP/1.0 200 OK\r\n");
-                        if (contenttype != null)
-                            pout.print("Content-Type: " + contenttype + "\r\n");
+                        pout.print("Content-Type: " + contenttype + "\r\n");
                         pout.print("Size: " + f.length() + "\r\n");
                         pout.print("Date: " + new Date() + "\r\n");
                         sendFile(file, out); // send raw file
@@ -105,15 +104,10 @@ public class ConnectionHandler implements Runnable {
                      String code, String title, String msg) {
         pout.print(
                 "HTTP/1.0 " + code + " " + title + "\r\n" +
-                        "\r\n" +
-                        "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\r\n" +
-                        "<HTML><HEAD><TITLE>" + code + " " + title + "</TITLE>\r\n" +
-                        "</HEAD><BODY>\r\n" +
-                        "<H1>" + title + "</H1>\r\n" + msg + "<P>\r\n" +
-                        "<HR><ADDRESS>IXWT FileServer 1.0 at " +
-                        con.getLocalAddress().getHostName() +
+                        "\r\n" + msg + "\r\n" +
+                        "<ADDRESS>IXWT FileServer 1.0 at " + con.getLocalAddress().getHostName() +
                         " Port " + con.getLocalPort() + "</ADDRESS>\r\n" +
-                        "</BODY></HTML>\r\n");
+                        "\r\n");
         log(con, code + " " + title);
     }
 
